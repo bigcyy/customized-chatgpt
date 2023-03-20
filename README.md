@@ -11,12 +11,15 @@
 ### 在线体验
 
 TODO
+
+![ui](pic/chat_demo.png)
+
 ### 前端项目地址
 https://github.com/bigcyy/customized-chatgpt-vue
 
 ### 原理
 
-上传pdf，让ChtGpt基于pdf的内容回答问题，原理很简单：将内容分割然后embedding存入向量数据库，当用户询问时将问题embedding，拿embedding结果去向量数据库查询相似度最高的几段话丢给ChatGpt让他组织语言并结合自己丰富的知识进行润色。
+上传PDF，让ChtGpt基于PDF的内容回答问题，原理很简单：将内容分割然后embedding存入向量数据库，当用户询问时将问题embedding，拿embedding结果去向量数据库查询相似度最高的几段话丢给ChatGpt让他组织语言并结合自己丰富的知识进行润色。
 
 ### 本地使用
 
