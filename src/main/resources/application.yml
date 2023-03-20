@@ -1,0 +1,9 @@
+
+proxy:
+  ip: 127.0.0.1
+  port: 7890
+milvus:
+  ip: localhost
+  port: 19530
+server:
+  port: 8081
