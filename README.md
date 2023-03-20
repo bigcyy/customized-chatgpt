@@ -19,11 +19,13 @@ https://github.com/bigcyy/customized-chatgpt-vue
 上传pdf，让ChtGpt基于pdf的内容回答问题，原理很简单：将内容分割然后embedding存入向量数据库，当用户询问时将问题embedding，拿embedding结果去向量数据库查询相似度最高的几段话丢给ChatGpt让他组织语言并结合自己丰富的知识进行润色。
 
 ### 本地使用
+
+> 注意，你需要有OpenAI账号并且创建一个apiKey，由于国内无法使用连接OpenAi服务所以你需要配置代理
+
 1. 安装Milvus向量数据库
 
    ```
    wget https://github.com/milvus-io/milvus/releases/download/v2.2.2/milvus-standalone-docker-compose.yml -O docker-compose.yml
-   
    sudo docker-compose up -d
    ```
 
@@ -35,9 +37,11 @@ https://github.com/bigcyy/customized-chatgpt-vue
 
 3. 用idea打开项目
 
-4. 初始化Milvus向量数据库表结构
+4. 初始化Milvus向量数据库表结构以及配置代理
 
-   找到项目test文件夹下的CustomizedChatApplicationTests.java，运行prepare函数
+   * application.yml中配置向量数据库连接地址和端口(本地不需要修改)，然后配置你的代理ip和端口
+
+   * 找到项目test文件夹下的CustomizedChatApplicationTests.java，运行prepare函数创建表结构
 
 5. 找到项目主函数运行后端
 
