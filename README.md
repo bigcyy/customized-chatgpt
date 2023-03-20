@@ -33,30 +33,29 @@ https://github.com/bigcyy/customized-chatgpt-vue
    git clone git@github.com:bigcyy/customized-chatgpt.git
    ```
 
-2. 用idea打开项目
+3. 用idea打开项目
 
-3. 初始化Milvus向量数据库表结构
+4. 初始化Milvus向量数据库表结构
 
-  找到项目test文件夹下的CustomizedChatApplicationTests.java，运行prepare函数
+   找到项目test文件夹下的CustomizedChatApplicationTests.java，运行prepare函数
 
-4. 找到项目主函数运行后端
+5. 找到项目主函数运行后端
 
-5. 克隆并运行前端项目
+6. 克隆并运行前端项目
 
-   ```
-   git clone git@github.com:bigcyy/customized-chatgpt-vue.git
-   cd customized-chatgpt-vue
-   npm install
-   npm run serve
-   ```
+```
+git clone git@github.com:bigcyy/customized-chatgpt-vue.git
+cd customized-chatgpt-vue
+npm install
+npm run serve
+```
 
-6. 访问控制台输出的地址
+7. 访问控制台输出的地址
 
-7. 界面左下角配置你的apiKey
+8. 界面左下角配置你的apiKey
 
-8. 界面左下角上传你需要定制聊天的PDF文件
-
-9. enjoy it
+9. 界面左下角上传你需要定制聊天的PDF文件
+10. enjoy it
 
 ### todo
 
