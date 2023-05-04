@@ -54,9 +54,9 @@ public class ChatServiceImpl implements IChatService{
         );
         final Integer SEARCH_K = 4;                       // TopK
         final String SEARCH_PARAM = "{\"nprobe\":10}";    // Params
-        List<String> ids = List.of("id");
-        List<String> contents = List.of("content");
-        List<String> contentWordCounts = List.of("content_word_count");
+        List<String> ids = Arrays.asList("id");
+        List<String> contents = Arrays.asList("content");
+        List<String> contentWordCounts = Arrays.asList("content_word_count");
         SearchParam searchParam = SearchParam.newBuilder()
                 .withCollectionName("pdf_data")
                 .withConsistencyLevel(ConsistencyLevelEnum.STRONG)
