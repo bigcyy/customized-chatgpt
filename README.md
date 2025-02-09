@@ -15,7 +15,7 @@ TODO
 ![ui](pic/chat_demo.png)
 
 ### 前端项目地址
-https://github.com/bigcyy/customized-chatgpt-vue
+https://github.com/bigcyy/customized-chat-vue
 
 ### 原理
 
@@ -35,7 +35,7 @@ https://github.com/bigcyy/customized-chatgpt-vue
 2. 克隆后端项目
 
    ```
-   git clone git@github.com:bigcyy/customized-chatgpt.git
+   git clone git@github.com:bigcyy/customized-chat.git
    ```
 
 3. 用idea打开项目
@@ -51,8 +51,8 @@ https://github.com/bigcyy/customized-chatgpt-vue
 6. 克隆并运行前端项目
 
 ```
-git clone git@github.com:bigcyy/customized-chatgpt-vue.git
-cd customized-chatgpt-vue
+git clone git@github.com:bigcyy/customized-chat-vue.git
+cd customized-chat-vue
 npm install
 npm run serve
 ```
