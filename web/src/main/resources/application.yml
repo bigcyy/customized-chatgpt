@@ -7,3 +7,9 @@ milvus:
   port: 19530
 server:
   port: 8081
+
+spring:
+  ai:
+    openai:
+      base-url: https://openrouter.ai/api/
+      api-key:
