@@ -3,6 +3,8 @@ package com.cyy.chat.controller;
 import com.cyy.chat.DocParser.AbstractParser;
 import com.cyy.chat.service.IChatService;
 import com.cyy.chat.DocParser.PdfParse;
+import jakarta.annotation.Resource;
+import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,16 +23,17 @@ public class ChatController {
     @Autowired
     private IChatService chatService;
 
+    @Resource
+    private OpenAiChatModel chatModel;
+
     private final String openAIkey = "openAI_key";
     @PutMapping("/save")
     public void saveKey(@RequestParam String key, HttpServletRequest request){
         request.getSession().setAttribute(openAIkey,key);
     }
     @GetMapping("/chat")
-    public String chat(@RequestParam String question,HttpServletRequest request){
-        String key = (String) request.getSession().getAttribute(openAIkey);
-        if(key == null || "".equals(key)) return "请先设置ApiKey。";
-        return chatService.toChat(key, question);
+    public String chat(@RequestParam String question){
+        return this.chatModel.call(question);
     }
     @PostMapping("/upload")
     public void upload(MultipartFile file, HttpServletRequest request) throws Exception {
