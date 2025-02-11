@@ -38,6 +38,15 @@
         </dependencies>
     </dependencyManagement>
 
+    <!-- 通用依赖 -->
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
     <repositories>
         <repository>
             <id>spring-milestones</id>
