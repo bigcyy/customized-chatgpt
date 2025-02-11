@@ -24,6 +24,7 @@
 
     <modules>
         <module>web</module>
+        <module>common</module>
     </modules>
 
     <dependencyManagement>
