@@ -52,6 +52,23 @@ public class R {
         return r;
     }
 
+    public static R error(ErrorCode errorCode) {
+        R r = new R();
+        r.setSuccess(false);
+        r.setCode(errorCode.getCode());
+        r.setMessage(errorCode.getMessage());
+        return r;
+    }
+
+    public static R error(String code, String message) {
+        R r = new R();
+        r.setSuccess(false);
+        r.setCode(code);
+        r.setMessage(message);
+        return r;
+    }
+
+
     // 通过return this 来使用达到链式编程的目的hh
     public R success(Boolean success){
         this.setSuccess(success);
