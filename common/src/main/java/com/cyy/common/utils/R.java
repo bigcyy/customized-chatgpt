@@ -3,6 +3,7 @@ package com.cyy.common.utils;
 
 
 import com.cyy.common.enums.ErrorCode;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -18,10 +19,15 @@ import java.util.Map;
  * 失败（全局异常处理） : return R.error().message("服务器内部异常")
  */
 @Data
+@Schema(description = "通用返回类")
 public class R {
+    @Schema(description = "请求是否成功")
     private boolean success;
+    @Schema(description = "返回码")
     private String code;
+    @Schema(description = "返回信息")
     private String message;
+    @Schema(description = "返回的 JSON 数据")
     private Map<String, Object> data = new HashMap<>();
 
     // 不允许通过直接实例化 R 类 ， 建议使用 R.ok() , R.error().data().... 来链式编程
