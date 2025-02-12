@@ -3,6 +3,10 @@ package com.cyy.chat.controller;
 import com.cyy.chat.DocParser.AbstractParser;
 import com.cyy.chat.service.IChatService;
 import com.cyy.chat.DocParser.PdfParse;
+import com.cyy.common.utils.R;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api")
+@Tag(name = "对话引擎", description = "管理对话相关的内容")
 public class ChatController {
     @Autowired
     private IChatService chatService;
@@ -32,8 +37,14 @@ public class ChatController {
         request.getSession().setAttribute(openAIkey,key);
     }
     @GetMapping("/chat")
-    public String chat(@RequestParam String question){
-        return this.chatModel.call(question);
+    @Operation(
+            summary = "对话接口",
+            description = "根据用户输入的问题返回对应的回答"
+    )
+    public R chat(
+            @Parameter(description = "用户的问题",required = true,example = "你能做什么？")
+            @RequestParam String question){
+        return R.ok().data("msg",chatModel.call(question));
     }
     @PostMapping("/upload")
     public void upload(MultipartFile file, HttpServletRequest request) throws Exception {
