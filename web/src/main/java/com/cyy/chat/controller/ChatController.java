@@ -28,8 +28,6 @@ public class ChatController {
     @Autowired
     private IChatService chatService;
 
-    @Resource
-    private OpenAiChatModel chatModel;
 
     private final String openAIkey = "openAI_key";
     @PutMapping("/save")
@@ -44,7 +42,7 @@ public class ChatController {
     public R chat(
             @Parameter(description = "用户的问题",required = true,example = "你能做什么？")
             @RequestParam String question){
-        return R.ok().data("msg",chatModel.call(question));
+        return R.ok().data("msg","temp");
     }
     @PostMapping("/upload")
     public void upload(MultipartFile file, HttpServletRequest request) throws Exception {

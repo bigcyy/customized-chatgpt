@@ -8,11 +8,6 @@ milvus:
 server:
   port: 8081
 
-spring:
-  ai:
-    openai:
-      base-url: https://openrouter.ai/api/
-      api-key: sk-xxxxxxdsfsfsdfsdfsdfsdfsdf
 
 springdoc:
   swagger-ui:
@@ -25,3 +20,9 @@ springdoc:
     - group: 'default'
       paths-to-match: '/**'
       packages-to-scan: com.cyy.chat.controller
+
+
+spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.ai.autoconfigure.openai.OpenAiAutoConfiguration
