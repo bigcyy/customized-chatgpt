@@ -1,0 +1,35 @@
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-8 {
+  padding: var(--app-base-px);
+}
+.p-16 {
+  padding: calc(var(--app-base-px) * 2);
+}
+.p-24 {
+  padding: calc(var(--app-base-px) * 3);
+}
+
+.w-full {
+  width: 100%;
+}
+.h-full {
+  height: 100%;
+}
+
+/**
+ * 鼠标样式, 默认是手型
+ */
+.cursor {
+  cursor: pointer;
+}
