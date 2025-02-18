@@ -20,11 +20,19 @@
   padding: calc(var(--app-base-px) * 3);
 }
 
+.mb-16 {
+  margin-bottom: 16px;
+}
+
 .w-full {
   width: 100%;
 }
 .h-full {
   height: 100%;
+}
+
+.w-240 {
+  width: 240px;
 }
 
 /**
