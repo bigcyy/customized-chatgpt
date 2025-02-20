@@ -3,4 +3,10 @@ interface Provider {
   providerIconPath: string
 }
 
-export type { Provider }
+interface ModelType {
+  key: string
+  name: string
+  desc: string
+}
+
+export type { Provider, ModelType }

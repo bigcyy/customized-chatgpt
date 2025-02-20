@@ -21,14 +21,16 @@
         </el-table-column>
       </el-table>
     </div>
-
-    <SelectProviderDialog ref="selectProviderRef" />
+    <CreateModelDialog ref="createModelRef" @change="openSelectProviderDialog()" />
+    <SelectProviderDialog ref="selectProviderRef" @change="openCreateModelDialog($event)" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import SelectProviderDialog from './component/SelectProviderDialog.vue'
+import CreateModelDialog from './component/CreateModelDialog.vue'
+import { type Provider } from '@/api/type/model'
 
 interface User {
   date: string
@@ -37,6 +39,7 @@ interface User {
 }
 
 const selectProviderRef = ref<InstanceType<typeof SelectProviderDialog>>()
+const createModelRef = ref<InstanceType<typeof CreateModelDialog>>()
 
 const search = ref('')
 const filterTableData = computed(() =>
@@ -51,6 +54,12 @@ const handleDelete = (index: number, row: User) => {
   console.log(index, row)
 }
 const handleAddModel = () => {
+  selectProviderRef.value?.open()
+}
+const openCreateModelDialog = (provider: Provider) => {
+  createModelRef.value?.open(provider)
+}
+const openSelectProviderDialog = () => {
   selectProviderRef.value?.open()
 }
 const tableData: User[] = [
