@@ -11,7 +11,7 @@
     <template #header>
       <el-breadcrumb separator=">">
         <el-breadcrumb-item>
-          <span class="select-provider" @click="openCreateModelDialog"> 选择提供商 </span>
+          <span class="select-provider" @click="selectProviderDialog()"> 选择提供商 </span>
         </el-breadcrumb-item>
         <el-breadcrumb-item class="active-breadcrumb">
           <span>
@@ -216,7 +216,7 @@ const submit = () => {
   close()
 }
 
-const openCreateModelDialog = () => {
+const selectProviderDialog = () => {
   close()
   emit('change')
 }

@@ -1,9 +1,15 @@
 package com.cyy.chat.provider;
 
+
+import com.cyy.common.enums.ModelType;
+import org.springframework.ai.model.ModelDescription;
+
 import java.util.List;
 
 public interface ModelProvider {
-    List<String> listSupportedModels();
+    List<? extends ModelDescription> listSupportedModels();
+    List<? extends ModelDescription> listSupportedModelByTypes(List<ModelType> type);
     String getProviderName();
     String getProviderIconPath();
+    List<ModelType> listSupportedModelTypes();
 }
