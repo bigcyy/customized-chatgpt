@@ -93,3 +93,56 @@ export const get: (
 ) => {
   return promise(request({ url: url, method: 'get', params, timeout: timeout }), loading)
 }
+
+/**
+ * faso post请求 一般用来添加资源
+ * @param url    资源url
+ * @param params 参数
+ * @param data   添加数据
+ * @param loading loading
+ * @returns 异步promise对象
+ */
+export const post: (
+  url: string,
+  data?: unknown,
+  params?: unknown,
+  loading?: NProgress | Ref<boolean>,
+  timeout?: number
+) => Promise<Result<any> | any> = (url, data, params, loading, timeout) => {
+  return promise(request({ url: url, method: 'post', data, params, timeout }), loading)
+}
+
+/**|
+ * 发送put请求 用于修改服务器资源
+ * @param url     资源地址
+ * @param params  params参数地址
+ * @param data    需要修改的数据
+ * @param loading 进度条
+ * @returns
+ */
+export const put: (
+  url: string,
+  data?: unknown,
+  params?: unknown,
+  loading?: NProgress | Ref<boolean>,
+  timeout?: number
+) => Promise<Result<any>> = (url, data, params, loading, timeout) => {
+  return promise(request({ url: url, method: 'put', data, params, timeout }), loading)
+}
+
+/**
+ * 删除
+ * @param url     删除url
+ * @param params  params参数
+ * @param loading 进度条
+ * @returns
+ */
+export const del: (
+  url: string,
+  params?: unknown,
+  data?: unknown,
+  loading?: NProgress | Ref<boolean>,
+  timeout?: number
+) => Promise<Result<any>> = (url, params, data, loading, timeout) => {
+  return promise(request({ url: url, method: 'delete', params, data, timeout }), loading)
+}

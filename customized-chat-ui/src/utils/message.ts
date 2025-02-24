@@ -1,4 +1,4 @@
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 export const MsgSuccess = (message: string) => {
   ElMessage.success({
@@ -34,4 +34,19 @@ export const MsgError = (message: string) => {
     showClose: true,
     duration: 3000
   })
+}
+
+/**
+ * 删除知识库
+ * @param 参数 message: {title, description,type}
+ */
+
+export const MsgConfirm = (title: string, description: string, options?: any) => {
+  const defaultOptions: Object = {
+    showCancelButton: true,
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    ...options
+  }
+  return ElMessageBox.confirm(description, title, defaultOptions)
 }

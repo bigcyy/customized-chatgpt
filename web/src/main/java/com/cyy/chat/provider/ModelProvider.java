@@ -12,4 +12,5 @@ public interface ModelProvider {
     String getProviderName();
     String getProviderIconPath();
     List<ModelType> listSupportedModelTypes();
+    Boolean checkModelConnect(String baseUrl, String apiKey, String modelId);
 }

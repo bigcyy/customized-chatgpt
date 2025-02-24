@@ -8,6 +8,15 @@ milvus:
 server:
   port: 8081
 
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/cchat?characterEncoding=UTF-8&autoReconnect=true&useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  autoconfigure:
+    exclude:
+          - org.springframework.ai.autoconfigure.openai.OpenAiAutoConfiguration
 
 springdoc:
   swagger-ui:
@@ -22,7 +31,3 @@ springdoc:
       packages-to-scan: com.cyy.chat.controller
 
 
-spring:
-  autoconfigure:
-    exclude:
-      - org.springframework.ai.autoconfigure.openai.OpenAiAutoConfiguration

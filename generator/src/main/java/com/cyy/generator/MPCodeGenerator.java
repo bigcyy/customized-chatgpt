@@ -18,9 +18,10 @@ public class MPCodeGenerator {
      * @return 控制台的输入
      */
     public static void main(String[] args) {
-        FastAutoGenerator.create("url", "root", "root")
+        FastAutoGenerator.create("jdbc:mysql://localhost:3306/cchat", "root", "root")
                 // 全局配置
-                .globalConfig(builder -> builder.author("CYY"))
+                .globalConfig(builder -> builder.author("CYY")
+                        .outputDir(System.getProperty("user.dir") + "/web/src/main/java"))
                 // 包配置
                 .packageConfig(builder ->
                         builder.parent("com.cyy.chat")
@@ -28,7 +29,7 @@ public class MPCodeGenerator {
                                 .mapper("dao")
                                 .service("service")
                                 .serviceImpl("service.impl")
-                                .xml("mappers")
+                                .xml("mapper")
                                 .controller("controller"))
                 // 策略配置
                 .strategyConfig((scanner, builder) -> builder.addInclude(getTables(scanner.apply("请输入表名，多个英文逗号分隔？所有输入 all")))

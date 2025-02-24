@@ -1,9 +1,10 @@
-package com.cyy.chat.service;
+package com.cyy.chat.service.impl;
 
 import com.cyy.chat.model.ChatGptModel;
 import com.cyy.chat.model.EmbeddingModel;
 import com.cyy.chat.model.result.EmbeddingsApiResult;
 import com.cyy.chat.pojo.PDFData;
+import com.cyy.chat.service.IChatService;
 import io.milvus.client.MilvusClient;
 import io.milvus.common.clientenum.ConsistencyLevelEnum;
 import io.milvus.grpc.SearchResults;
@@ -19,7 +20,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @author CYY
@@ -27,7 +27,7 @@ import java.util.Objects;
  * @description
  */
 @Service
-public class ChatServiceImpl implements IChatService{
+public class ChatServiceImpl implements IChatService {
     @Autowired
     private MilvusClient milvusClient;
     @Autowired

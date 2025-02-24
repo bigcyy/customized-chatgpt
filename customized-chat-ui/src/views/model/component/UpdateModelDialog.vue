@@ -8,21 +8,9 @@
     @closed="close"
     append-to-body
   >
-    <template #header>
-      <el-breadcrumb separator=">">
-        <el-breadcrumb-item>
-          <span class="select-provider" @click="selectProviderDialog()"> 选择提供商 </span>
-        </el-breadcrumb-item>
-        <el-breadcrumb-item class="active-breadcrumb">
-          <span>
-            {{ '添加 ' + selectedProvider?.providerName }}
-          </span>
-        </el-breadcrumb-item>
-      </el-breadcrumb>
-    </template>
     <el-tabs v-model="activeTab">
       <el-tab-pane label="基础信息" name="modelInfo">
-        <el-form label-width="auto" :model="baseFormData" label-position="top">
+        <el-form label-width="120px" :model="baseFormData" label-position="top">
           <el-form-item>
             <template #label>
               <div class="flex align-center" style="display: inline-flex">
@@ -59,7 +47,7 @@
               v-model="baseFormData.modelType"
               placeholder="请选择模型类型"
               v-loading="model_type_loading"
-              @change="listModel($event, true)"
+              disabled
             >
               <el-option
                 v-for="(modelType, index) in modelTypes"
@@ -93,14 +81,14 @@
       </el-tab-pane>
       <el-tab-pane label="高级设置" name="advancedSettings">
         <el-empty
-          v-if="!selectedProvider || !baseFormData.modelType || !baseFormData.modelName"
+          v-if="!baseFormData.modelType || !baseFormData.modelName"
           description="请先选择模型类型和模型"
         />
         <el-empty
           v-else-if="baseFormData.modelType !== 'LLM'"
           description="所选模型不支持高级设置"
         />
-        <el-form :model="baseFormData.modelConfig" label-width="auto" v-else>
+        <el-form :model="baseFormData.modelConfig" label-width="120px" v-else>
           <el-form-item label="Temperature">
             <el-slider
               v-model.number="baseFormData.modelConfig.temperature"
@@ -126,51 +114,69 @@
     <template #footer>
       <span>
         <el-button @click="close">取消</el-button>
-        <el-button type="primary" @click="submit" :loading="loading"> 保存 </el-button>
+        <el-button type="primary" @click="update" :loading="loading"> 更新 </el-button>
       </span>
     </template>
   </el-dialog>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { type Provider, type ModelType, type ModelConfigForm } from '@/api/type/model'
 import modelApi from '@/api/model'
 import { MsgSuccess } from '@/utils/message'
 
 const dialogVisible = ref(false)
-const selectedProvider = ref<Provider>()
 const loading = ref(false)
 const modelTypes = ref<Array<ModelType>>([])
 const modelList = ref<Array<string>>([])
 const model_type_loading = ref(false)
 const modelListLoading = ref(false)
+const activeTab = ref('modelInfo')
 const baseFormData = ref<ModelConfigForm>({
   displayName: '',
   modelType: '',
   modelName: '',
   provider: '',
   modelConfig: {
-    temperature: Number(0.7),
-    maxTokens: Number(10240)
+    temperature: 0.7,
+    maxTokens: 10240
   },
   apiUrl: '',
   apiKey: ''
 })
 
-const activeTab = ref('modelInfo')
-const emit = defineEmits(['change', 'submit'])
+const emit = defineEmits(['update'])
 
-const open = (provider: Provider) => {
-  modelApi.getModelTypes(provider.providerName, model_type_loading).then((res) => {
-    modelTypes.value = res.data.types
+const open = async (id: number) => {
+  // 获取模型
+  await modelApi.getModelById(id).then((res) => {
+    baseFormData.value = res.data.model
+    if (baseFormData.value.modelConfig) {
+      baseFormData.value.modelConfig.maxTokens = Number(baseFormData.value.modelConfig.maxTokens)
+      baseFormData.value.modelConfig.temperature = Number(
+        baseFormData.value.modelConfig.temperature
+      )
+    }
   })
-  baseFormData.value.provider = provider.providerName
+  // 获取根据模型的提供商获取模型的所有类型
+  if (baseFormData.value?.provider) {
+    modelApi.getModelTypes(baseFormData.value?.provider, model_type_loading).then((res) => {
+      modelTypes.value = res.data.types
+    })
+
+    // 根据模型的类型以及提供商获取所有可以选择的模型
+    listModel(baseFormData.value.modelType)
+  }
   dialogVisible.value = true
-  selectedProvider.value = provider
 }
 
 const close = () => {
+  modelListLoading.value = false
+  model_type_loading.value = false
+  modelList.value = []
+  loading.value = false
+  activeTab.value = 'modelInfo'
   baseFormData.value = {
     displayName: '',
     modelType: '',
@@ -183,39 +189,21 @@ const close = () => {
     apiUrl: '',
     apiKey: ''
   }
-  modelListLoading.value = false
-  model_type_loading.value = false
-  modelList.value = []
-  loading.value = false
-  activeTab.value = 'modelInfo'
   dialogVisible.value = false
 }
 
-const listModel = (modelType: string, change?: boolean) => {
-  if (change) {
-    baseFormData.value.displayName = ''
-    baseFormData.value.modelConfig = { temperature: 0.7, maxTokens: 10240 }
-  }
-  if (selectedProvider.value != undefined) {
-    modelApi
-      .getModelByType(selectedProvider.value.providerName, modelType, modelListLoading)
-      .then((res) => {
-        modelList.value = res.data.models
-      })
-  }
-}
-
-const submit = () => {
-  modelApi.createModel(baseFormData.value, loading).then((res) => {
-    close()
-    MsgSuccess('创建成功')
-    emit('submit')
+const listModel = (modelType: string) => {
+  modelApi.getModelByType(baseFormData.value.provider, modelType, modelListLoading).then((res) => {
+    modelList.value = res.data.models
   })
 }
 
-const selectProviderDialog = () => {
-  close()
-  emit('change')
+const update = () => {
+  modelApi.updateModel(baseFormData.value, loading).then((res) => {
+    close()
+    MsgSuccess('更新成功')
+    emit('update')
+  })
 }
 
 defineExpose({
